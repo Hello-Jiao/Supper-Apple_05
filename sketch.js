@@ -41,7 +41,7 @@ function setup() {
   isPlummeting = false;
 
   // Initialise arrays of scenery objects.
-  trees_x = [100, 300, 500, 1000];
+  trees_x = [100, 300, 1400, 1000];
   collectables = [
     { x_pos: 400, size: 48, y_pos: floorPos_y - 100, isFound: false },
     { x_pos: 800, size: 48, y_pos: floorPos_y, isFound: false },
@@ -55,10 +55,10 @@ function setup() {
   mountains = [
     { x_pos: -400, y_pos: 100 },
     { x_pos: -100, y_pos: 100 },
-    { x_pos: -800, y_pos: 100 }
+    { x_pos: 1000, y_pos: 100 }
   ];
   canyons = [
-    { x_pos: -500, width: 100 },
+    { x_pos: -200, width: 100 },
     { x_pos: 1100, width: 100 },
     { x_pos: 1500, width: 100 }
   ];
@@ -81,7 +81,6 @@ function draw() {
   drawMountains();
 
   // Draw trees.
-
   drawTrees();
 
   // Draw canyons.
@@ -121,7 +120,7 @@ function draw() {
 
   // Logic to make the game character rise and fall.
   if (isPlummeting == true && gameChar_y == floorPos_y) {
-    gameChar_y = floorPos_y - 300;
+    gameChar_y = floorPos_y - 150;
   }
   if (isFalling == true) {
     gameChar_y += 5;
@@ -145,14 +144,11 @@ function keyPressed() {
   console.log("press" + keyCode);
   console.log("press" + key);
   if (keyCode == 37) {
-    console.log("left arrow");
     isLeft = true;
   } else if (keyCode == 39) {
-    console.log("right arrow");
     isRight = true;
   }
   if (keyCode == 32) {
-    console.log("space bar");
     isPlummeting = true;
     isFalling = false;
   }
@@ -162,14 +158,11 @@ function keyReleased() {
   console.log("release" + keyCode);
   console.log("release" + key);
   if (keyCode == 37) {
-    console.log("left arrow");
     isLeft = false;
   } else if (keyCode == 39) {
-    console.log("right arrow");
     isRight = false;
   }
   if (keyCode == 32) {
-    console.log("space bar");
     isPlummeting = false;
     isFalling = true;
   }
@@ -314,9 +307,7 @@ function drawGameChar() {
     fill(255);
     stroke(65);
     ellipse(gameChar_x + 8, gameChar_y - 55, 8, 8);
-    // ellipse(gameChar_x - 7, gameChar_y - 56, 10, 10);
     ellipse(gameChar_x + 8, gameChar_y - 54, 2, 2);
-    // ellipse(gameChar_x - 8, gameChar_y - 54, 2, 2);
     //mouth
     line(gameChar_x + 6, gameChar_y - 46, gameChar_x + 2, gameChar_y - 46);
     //legs
@@ -470,7 +461,6 @@ function drawMountains() {
 // Function to draw trees objects.
 function drawTrees() {
   for (var i = 0; i < trees_x.length; i++) {
-    //big tree
     fill(137, 103, 27);
     rect(trees_x[i], floorPos_y - 86, 19, 87);
     fill(188, 222, 111);
@@ -482,7 +472,6 @@ function drawTrees() {
       trees_x[i] + 10,
       floorPos_y - 56
     );
-
     fill(138, 195, 61);
     triangle(
       trees_x[i] + 10,
@@ -522,7 +511,7 @@ function drawTrees() {
 // Function to draw canyon objects.
 
 function drawCanyon(t_canyon) {
-  fill(100, 155, 255);
+  fill(75, 80, 82);
   rect(t_canyon.x_pos, floorPos_y, t_canyon.width, floorPos_y);
   fill(168, 167, 186);
   triangle(
